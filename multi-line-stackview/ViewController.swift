@@ -54,6 +54,11 @@ class ViewController: UIViewController {
         applyStackViewConfiguration()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        applyStackViewConfiguration()
+    }
+    
     private func configureViews() {
         view.addSubview(shouldShowLongTextButton)
         view.addSubview(multiLineStackView)
@@ -76,7 +81,7 @@ class ViewController: UIViewController {
     }
     
     private func applyStackViewConfiguration() {
-        print("Do something here...")
+        multiLineStackView.axis = nameLabel.isTruncated ? .vertical : .horizontal
     }
     
     @objc private func didTapSwitchButton(sender: UISwitch) {
@@ -84,3 +89,8 @@ class ViewController: UIViewController {
     }
 }
 
+fileprivate extension UILabel {
+    var isTruncated: Bool {
+        return intrinsicContentSize.width > frame.width
+    }
+}
